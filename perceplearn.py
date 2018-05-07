@@ -124,7 +124,8 @@ def train_vanilla_perceptron(maxIter,label, unique_words, one_hot_vector):
 				weights += label[index] * review
 				bias += label[index]
 
-				
+	# print len(weights[0])
+	# print len(get_unique_words)			
 	return weights, bias
 
 
@@ -164,6 +165,11 @@ def write_model_parametersVanilla(unique_words, weights, bias, filename = 'vanil
 	data['weights'] = weights.tolist()
 	data['bias'] = bias
 
+	print len(weights[0])
+	print len(unique_words)
+	print "-----------------------------"
+	print len(data['weights'][0])
+	print len(data['unique_words'])
 
 
 	with open (filename,'w') as f:
