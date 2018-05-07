@@ -1,5 +1,8 @@
 # Facebook Sentimental Analyser
 
+### Demo
+![Alt Text](https://github.com/aarushigupta/FacebookSentimentalAnalyser/blob/master/demo.gif)
+
 
 A chrome extension which performs sentimental analysis of posts on Facebook. This is a chrome extension which can be installed from the source.
 
@@ -26,5 +29,3 @@ A chrome extension which performs sentimental analysis of posts on Facebook. Thi
 		b) Red: Negative posts
 		c) Blue: Neutral posts
 
-### Demo
-![Alt Text](https://github.com/aarushigupta/FacebookSentimentalAnalyser/blob/master/demo.gif)
