@@ -85,9 +85,20 @@ function analyseSentiment(phrase, inject, callback) {
     });
 };
 
-function analyseSentimentPerceptron(percep_data, phrase) {
+function analyseSentimentPerceptron(percep_data, phrase, inject, callback) {
 
-    console.log("Called analyseSentimentPerceptron");
+    // console.log("Called analyseSentimentPerceptron");
+
+    //     // Parse arguments
+    if (typeof phrase === 'undefined') phrase = '';
+    if (typeof inject === 'undefined') inject = null;
+    if (typeof inject === 'function') callback = inject;
+    if (typeof callback === 'undefined') callback = null;
+
+    // Merge
+    if (inject !== null) {
+        afinn = Object.assign(afinn, inject);
+    }
 
     var weights = percep_data['weights'];
     var bias = percep_data['bias'];
@@ -95,9 +106,10 @@ function analyseSentimentPerceptron(percep_data, phrase) {
 
     var words = tokenize(phrase);
 
+    var unique_words_len = Object.keys(percep_data['unique_words']).length
     var i;
-    var one_hot_vector = new Array(unique_words.length);
-    for (i = 0; i < unique_words.length; i ++){
+    var one_hot_vector = new Array(unique_words_len);
+    for (i = 0; i < unique_words_len; i++){
         one_hot_vector[i] = 0;
     }
 
@@ -107,22 +119,30 @@ function analyseSentimentPerceptron(percep_data, phrase) {
         }
     }
 
+    // console.log('OHL, UWL, WL ' + one_hot_vector.length + ' ' + unique_words.length + ' ' + weights.length);
+
     var sum = 0;
     var label = 1;
-    for (i = 0; i < one_hot_vector.length; i++){
-        sum += one_hot_vector[i] * weights[i]
+    for (i = 0; i < unique_words_len; i++){
+        sum += one_hot_vector[i] * weights[i];
+        // console.log(weights[i] + ' ' + one_hot_vector[i] + ' ' + sum);
     }
 
-    sum += bias
+    sum += bias;
+
+    console.log("The sum for " + phrase + ' is ' + sum);
 
     if (sum < 0){
-        label = -1
+        label = -1;
     }
     else{
-        label = 1
+        label = 1;
     }
 
-    return label
+    if (callback === null) return label;
+    process.nextTick(function () {
+        callback(null, result);
+    });
 
 };
 
