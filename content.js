@@ -12,14 +12,11 @@ document.addEventListener('DOMNodeInserted', function () {
 		for(var i = 0; i < arr.length; i++) {
 			var txt = arr[i].innerText;
 			var toColor = arr[i];
-			// var sentiment = analyseSentiment(txt);
-			// var scoreOfSentiment = sentiment.score;
 			if(model == undefined){
 				console.log("New div added, but the model is empty");
 				continue;
 			}
 
-			// console.log("Model data is now available");
 			
 			var sentiment = analyseSentimentPerceptron(model, txt);
 			if (sentiment == -1){
@@ -29,36 +26,9 @@ document.addEventListener('DOMNodeInserted', function () {
 				toColor.style.color = "green";
 			}
 
-			// if (scoreOfSentiment < 0){
-			// 	toColor.style.color = "red";
-			// }
-			// else if(scoreOfSentiment > 0){
-			// 	toColor.style.color = "green";
-			// }
-			// else{
-			// 	toColor.style.color = "blue";
-			// }
-
-
-			//console.log(txt);
-			//console.log(sentiment.score);
 		}
 });
 
 function saveModel(data){
 	model = data;
-};
-
-function fetchModel(){
-	console.log("Making request");
-	$.ajax({
-    url: 'http://localhost:9090/vanillamodel.json',
-    type: 'GET',
-    success: function(response){saveModel(response)},
-    error: function(){console.log("Error occurred");}}
-)};
-
-window.onload = function() {
-  // fetchModel();
-  console.log("Onload called");
 };
