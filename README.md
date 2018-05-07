@@ -25,3 +25,6 @@ A chrome extension which performs sentimental analysis of posts on Facebook. Thi
 		a) Green: Positive posts
 		b) Red: Negative posts
 		c) Blue: Neutral posts
+
+### Demo
+![Alt Text](https://github.com/aarushigupta/FacebookSentimentalAnalyser/blob/master/demo.gif)
